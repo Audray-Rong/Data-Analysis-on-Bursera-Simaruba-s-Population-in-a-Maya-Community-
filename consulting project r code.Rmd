@@ -1,0 +1,283 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+# Appendix
+
+Import data set:
+```{r}
+seed_cut = read.csv("Seedings_cut.csv")
+all_dat = read.csv("All_data.csv")
+plot_dat = read.csv("Plots_data.csv")
+```
+
+
+
+Model for BA:
+```{r}
+mod1 = lm(plot_dat$Basal.Area..m2.ha.1. ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat )
+par(mfrow = c(2,2))
+plot(mod1)
+summary(mod1)
+```
+
+Stem density model:
+```{r}
+mod2 = lm(plot_dat$Stem.density....ha. ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+
+par(mfrow = c(2,2))
+plot(mod2)
+summary(mod2)
+```
+
+
+population size structures (stem density with ha):
+```{r}
+## group 1
+mod_group1 = lm(plot_dat$Adult_1...ha. ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+par(mfrow = c(2,2))
+plot(mod_group1)
+
+mod_group1_log <- lm(log(plot_dat$Adult_1...ha.) ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+par(mfrow = c(2,2))
+plot(mod_group1_log)
+summary(mod_group1_log)
+```
+
+group 2:
+```{r}
+mod_group2 = lm(plot_dat$Audlt_2...ha. ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+par(mfrow = c(2,2))
+plot(mod_group2)
+summary(mod_group2)
+
+plot_dat$Audlt_2...ha.[plot_dat$Audlt_2...ha. == 0] <-  0.000001
+mod_group2_log = lm(log(plot_dat$Audlt_2...ha.) ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+par(mfrow = c(2,2))
+plot(mod_group2_log)
+
+```
+
+group 3:
+```{r}
+mod_group3 = lm(plot_dat$Audlt_3...ha. ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+
+par(mfrow = c(2,2))
+plot(mod_group3)
+summary(mod_group3)
+
+
+plot_dat$Audlt_3...ha.[plot_dat$Audlt_3...ha. == 0] <-  0.000001
+mod_group3_log = lm(log(plot_dat$Audlt_3...ha.) ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+
+par(mfrow = c(2,2))
+plot(mod_group3_log)
+
+```
+
+group 4:
+```{r}
+mod_group4 = lm(plot_dat$Audlt_4...ha. ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+par(mfrow = c(2,2))
+plot(mod_group4)
+summary(mod_group4)
+
+plot_dat$Audlt_4...ha.[plot_dat$Audlt_4...ha. == 0] <-  0.0000001
+mod_group4_log = lm(log(plot_dat$Audlt_4...ha.) ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+par(mfrow = c(2,2))
+plot(mod_group4_log)
+```
+
+group 5:
+```{r}
+mod_group5 = lm(plot_dat$Audlt_5...ha. ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+par(mfrow = c(2,2))
+plot(mod_group5)
+summary(mod_group5)
+
+
+plot_dat$Audlt_5...ha.[plot_dat$Audlt_5...ha. == 0] <-  0.0000001
+mod_group5 = lm(log(plot_dat$Audlt_5...ha.) ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+par(mfrow = c(2,2))
+plot(mod_group5)
+```
+
+sapling:
+```{r}
+mod_group_sap = lm(plot_dat$Saplings....ha.~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+par(mfrow = c(2,2))
+plot(mod_group_sap)
+
+mod_group_sap_log = lm(log(plot_dat$Saplings....ha.)~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+par(mfrow = c(2,2))
+plot(mod_group_sap_log)
+summary(mod_group_sap_log)
+```
+
+seedlings:
+```{r}
+mod_group_sed = lm(plot_dat$Seedling.density....ha. ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+par(mfrow = c(2,2))
+plot(mod_group_sed)
+
+mod_group_sed_log= lm(log(plot_dat$Seedling.density....ha.) ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+plot(mod_group_sed_log)
+summary(mod_group_sed_log)
+```
+
+
+BA & size model:
+group 1:
+```{r}
+mod_group_BA_1 = lm(plot_dat$BA_adult1.m2.ha. ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+par(mfrow = c(2,2))
+plot(mod_group_BA_1)
+
+mod_group_BA_1_log = lm(log(plot_dat$BA_adult1.m2.ha.) ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+par(mfrow = c(2,2))
+plot(mod_group_BA_1_log)
+summary(mod_group_BA_1_log)
+```
+
+group 2:
+```{r}
+mod_group_BA_2 = lm(plot_dat$BA_adult2.m2.ha. ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+par(mfrow = c(2,2))
+plot(mod_group_BA_2)
+summary(mod_group_BA_2)
+
+plot_dat$BA_adult2.m2.ha.[plot_dat$BA_adult2.m2.ha. == 0] <-  10^-7
+mod_group_BA_2_log = lm(log(plot_dat$BA_adult2.m2.ha.) ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+par(mfrow = c(2,2))
+plot(mod_group_BA_2_log)
+```
+
+group 3:
+```{r}
+mod_group_BA_3 = lm(plot_dat$BA_adult3.m2.ha. ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+par(mfrow = c(2,2))
+plot(mod_group_BA_3)
+summary(mod_group_BA_3)
+
+
+
+plot_dat$BA_adult3.m2.ha.[plot_dat$BA_adult3.m2.ha. == 0] <- 10^-7
+mod_group_BA_3_log = lm(log(plot_dat$BA_adult3.m2.ha.) ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+par(mfrow = c(2,2))
+plot(mod_group_BA_3_log)
+```
+
+
+group 4:
+```{r}
+mod_group_BA_4 = lm(plot_dat$BA_adult4.m2.ha. ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+par(mfrow = c(2,2))
+plot(mod_group_BA_4)
+summary(mod_group_BA_4)
+
+
+plot_dat$BA_adult4.m2.ha.[plot_dat$BA_adult4.m2.ha. == 0] <-  0.000001
+mod_group_BA_4_log = lm(log(plot_dat$BA_adult4.m2.ha.) ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+par(mfrow = c(2,2))
+plot(mod_group_BA_4_log)
+```
+
+
+group 5:
+```{r}
+mod_group_BA_5 = lm(plot_dat$BA_adult5.m2.ha. ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+par(mfrow = c(2,2))
+plot(mod_group_BA_5)
+summary(mod_group_BA_5)
+```
+
+
+saplings:
+```{r}
+mod_group_BA_sap = lm(plot_dat$BA_sapings.m2.ha. ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+plot(mod_group_BA_sap)
+summary(mod_group_BA_sap)
+
+mod_group_BA_sap_log = lm(log(plot_dat$BA_sapings.m2.ha.) ~ as.factor(plot_dat$Harvested) + 
+            as.factor(plot_dat$Milpa.has.it.been.milpa.) + as.factor(plot_dat$Forest.sAge..years.) +
+            as.factor(plot_dat$SoilType), data = plot_dat)
+plot(mod_group_BA_sap_log)
+summary(mod_group_BA_sap_log)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
